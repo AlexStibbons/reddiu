@@ -14,3 +14,27 @@ insert into security_authority (name) values ('ROLE_USER'); -- normal user
 insert into security_user_authority (user_id, authority_id) values (1, 1); -- admin has ROLE_ADMIN
 insert into security_user_authority (user_id, authority_id) values (1, 2); -- admin has ROLE_USER too
 insert into security_user_authority (user_id, authority_id) values (2, 2); -- petar has ROLE_USER
+
+insert into category (name) values ("Category 1");
+insert into category (name) values ("Category 2");
+insert into category (name) values ("Category 3");
+
+select * from message;
+
+insert into message (text, title, category_id, user_id) values ("this is my question etc etc etc",
+"a title", 1, 1);
+insert into message (text, title, category_id, user_id) values ("this is a story about something and a complaint
+about someone", "complaint", 1, 2);
+insert into message (text, title, category_id, user_id) values ("text text text", "zz ff gg", 1, 2);
+
+insert into message (text, title, category_id, user_id) values ("texty text text", "btitle", 2, 1);
+insert into message (text, title, category_id, user_id) values ("text text more text", "vfrgi", 2, 1);
+
+insert into message (text, title, category_id, user_id) values ("test message text", "testing", 3, 2);
+insert into message (text, title, category_id, user_id) values ("another test message", "test again", 3, 1);
+
+insert into comment (text, message_id, parent_id, user_id) values ("a parent comment on msg id 1", 1, null, 1);
+insert into comment (text, message_id, parent_id, user_id) values ("a child comment on 1st comm", 1, 1, 2);
+insert into comment (text, message_id, parent_id, user_id) values ("a child comment of a child comment", 1, 2, 1);
+insert into comment (text, message_id, parent_id, user_id) values ("a new parent comment", 1, null, 2);
+insert into comment (text, message_id, parent_id, user_id) values ("a 2nd child comment on 1st comm", 1, 1, 1);
