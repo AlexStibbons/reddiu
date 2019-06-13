@@ -39,4 +39,8 @@ public class MessageService {
 	public List<Message> findByUser(String user) {
 		return messageRepository.findByUserUsername(user);
 	}
+	
+	public Page<Message> findByTitle(String title, Pageable page) {
+		return messageRepository.findByTitleContainsIgnoreCase(title, page);
+	}
 }

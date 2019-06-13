@@ -13,12 +13,25 @@ import { CanActivateAuthGuard } from './security/can-activate-auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './security/token-interceptor.service';
 import { JwtUtilsService } from './security/jwt-utils.service';
+import { MainComponent } from './main/main.component';
+import { CategoryService } from './services/category.service';
+import { MessageService } from './services/message.service';
+import { CommentService } from './services/comment.service';
+import { MessageComponent } from './message/message.component';
+import { CommentComponent } from './comment/comment.component';
+import { AddMsgComponent } from './add-msg/add-msg.component';
+import { AddCommentComponent } from './add-comment/add-comment.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    LoginComponent
+    LoginComponent,
+    MainComponent,
+    MessageComponent,
+    CommentComponent,
+    AddMsgComponent,
+    AddCommentComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +47,10 @@ import { JwtUtilsService } from './security/jwt-utils.service';
     },
     AuthenticationService,
     CanActivateAuthGuard,
-    JwtUtilsService
+    JwtUtilsService,
+    CategoryService,
+    MessageService,
+    CommentService
   ],
   bootstrap: [AppComponent]
 })

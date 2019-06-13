@@ -1,6 +1,9 @@
 package vp.spring.rcs.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import vp.spring.rcs.model.Message;
@@ -51,6 +55,17 @@ public class MessageController {
 		 * 	it follows the spots in array without 'closing' the holes
 		*/
 	
+	}
+	
+	// jpa repo supports paginated queries
+	// url: http://localhost:8080/api/messages/title?title=titl&page=0&size=1
+	@GetMapping("api/messages/title")
+	public ResponseEntity<PageMessageDto> findByTitle(@RequestParam String title, Pageable page){
+		
+		Page<Message> pageFound = messageService.findByTitle(title, page);
+		PageMessageDto dto = new PageMessageDto(pageFound);
+		
+		return new ResponseEntity<>(dto, HttpStatus.OK);		
 	}
 	
 	@GetMapping("api/messages/{id}")
@@ -100,6 +115,7 @@ public class MessageController {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 	}
+	
 	
 	@PostMapping("api/messages/new") // works!
 	public ResponseEntity<MessageDto> addMsg(@AuthenticationPrincipal User user,

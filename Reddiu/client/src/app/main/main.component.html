@@ -1,0 +1,50 @@
+
+<button (click)="firstPage()"> first page </button>
+<button (click)="lastPage()"> last page </button>
+<!--ul *ngFor="let message of messages">
+  <li>
+    {{ message.title }} <br>
+    category: {{ message.category.name}} <br>
+    posted by: {{ message.user }}
+  </li>
+</ul>
+
+<button *ngIf="page.hasPrevious" (click)="previousPage()"> previous page</button>
+<button  *ngIf="page.hasNext" (click)="nextPage()"> next page </button-->
+
+<table class="table table-striped table-hover">
+  <thead class="thead-dark">
+    <th>
+      Category
+    </th>
+    <th>
+      Message
+    </th>
+    <th>
+      Creator
+    </th>
+    <th>
+      Options
+    </th>
+    <th>
+        <button *ngIf="page.hasPrevious" (click)="previousPage()"> previous page</button>
+        <button  *ngIf="page.hasNext" (click)="nextPage()"> next page </button>
+    </th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let message of messages">
+      <td>
+        {{message.category.name}}
+      </td>
+      <td>
+        {{message.title}}
+      </td>
+      <td>
+          {{message.user}}
+      </td>
+      <td>
+        <button> Read more </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

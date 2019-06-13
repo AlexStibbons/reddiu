@@ -2,6 +2,8 @@ package vp.spring.rcs.data;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
@@ -11,5 +13,6 @@ import vp.spring.rcs.model.Message;
 public interface MessageRepository extends JpaRepository<Message, Long>{
 	
 	public List<Message> findByUserUsername(String user);
+	public Page<Message> findByTitleContainsIgnoreCase(String title, Pageable page);
 
 }
