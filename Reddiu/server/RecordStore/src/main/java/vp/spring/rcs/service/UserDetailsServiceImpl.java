@@ -45,4 +45,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			  grantedAuthorities);
 	}
   }
+  
+  public SecurityUser findByUserName(String username) {
+	  return userRepository.findByUsername(username);
+  }
 }

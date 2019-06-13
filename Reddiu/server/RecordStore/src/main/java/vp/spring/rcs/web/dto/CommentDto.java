@@ -16,16 +16,26 @@ public class CommentDto {
 	
 	private String user;
 	
+	private boolean parentComment;
+	
+	private long parentCommentId;
+
 	private List<CommentDto> childComments = new ArrayList<>();
 
 	public CommentDto() {
 		super();
 	}
 	
-	public CommentDto(Comment comment) {
+	public CommentDto(Comment comment) { 
 		this.id = comment.getId();
 		this.text = comment.getText();
 		this.user = comment.getUser().getUsername();
+		if (comment.getParentComment() == null) {
+			this.parentComment = true;
+		} else {
+			this.parentComment = false;
+			this.parentCommentId = comment.getParentComment().getId();
+		}
 		if (!comment.getChildComments().isEmpty()) {
 			this.childComments = comment.getChildComments().stream()
 								.map(CommentDto::new)
@@ -71,6 +81,22 @@ public class CommentDto {
 
 	public void setChildComments(List<CommentDto> childComments) {
 		this.childComments = childComments;
+	}
+
+	public boolean isParentComment() {
+		return parentComment;
+	}
+
+	public void setParentComment(boolean parentComment) {
+		this.parentComment = parentComment;
+	}
+
+	public long getParentCommentId() {
+		return parentCommentId;
+	}
+
+	public void setParentCommentId(long parentCommentId) {
+		this.parentCommentId = parentCommentId;
 	}
 	
 	

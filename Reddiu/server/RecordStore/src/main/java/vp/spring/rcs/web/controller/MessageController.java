@@ -9,13 +9,16 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import vp.spring.rcs.model.Message;
+import vp.spring.rcs.model.user.SecurityUser;
 import vp.spring.rcs.service.CategoryService;
 import vp.spring.rcs.service.MessageService;
+import vp.spring.rcs.service.UserDetailsServiceImpl;
 import vp.spring.rcs.web.dto.MessageDto;
 import vp.spring.rcs.web.dto.PageMessageDto;
 
@@ -27,6 +30,9 @@ public class MessageController {
 	
 	@Autowired
 	CategoryService categoryService;
+	
+	@Autowired
+	UserDetailsServiceImpl userService;
 	
 	@GetMapping("api/messages")
 	public ResponseEntity<PageMessageDto> findAll(Pageable page){
@@ -67,7 +73,7 @@ public class MessageController {
 		
 		Message found = messageService.findById(id);
 		
-		if (found!=null && found.getUser().getUsername() == user.getUsername()) {
+		if (found!=null && found.getUser().getUsername().equalsIgnoreCase(user.getUsername())) { // do not ignore case, though
 			found.setText("[deleted]");
 			found = messageService.save(found);
 			return new ResponseEntity<>(new MessageDto(found), HttpStatus.OK);
@@ -76,24 +82,38 @@ public class MessageController {
 		}
 	}
 	
-	@PutMapping("api/messages/{id}")
+	@PutMapping("api/messages/{id}")  // works!
 	public ResponseEntity<MessageDto> editMessage(@PathVariable long id,
 												@RequestBody MessageDto toEdit,
 												@AuthenticationPrincipal User user){
 		
 		Message found = messageService.findById(id);
 		
-		if (found!=null && found.getUser().getUsername() == user.getUsername()) {
-			found.setId(id);
-			found.setTitle(toEdit.getTitle());
-			found.setText(toEdit.getText());
-			found.setCategory(categoryService.findById(toEdit.getCategory().getId()));
-			found = messageService.save(found);
-			return new ResponseEntity<>(new MessageDto(found), HttpStatus.OK);
+		if (found!=null && found.getUser().getUsername().equalsIgnoreCase(user.getUsername())) { // !! string comparison
+		found.setId(id);
+		found.setTitle(toEdit.getTitle());
+		found.setText(toEdit.getText());
+		found.setCategory(categoryService.findById(toEdit.getCategory().getId()));
+		found = messageService.save(found);
+		return new ResponseEntity<>(new MessageDto(found), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 	}
 	
-//	@PostMapping("api/messages/new")
+	@PostMapping("api/messages/new") // works!
+	public ResponseEntity<MessageDto> addMsg(@AuthenticationPrincipal User user,
+											@RequestBody MessageDto message){
+		
+		SecurityUser creator = userService.findByUserName(user.getUsername()); // insecure?
+		
+		Message msg = new Message();
+		msg.setTitle(message.getTitle());
+		msg.setText(message.getText());
+		msg.setCategory(categoryService.findById(message.getCategory().getId()));
+		msg.setUser(creator);
+		msg = messageService.save(msg);
+		
+		return new ResponseEntity<>(new MessageDto(msg), HttpStatus.CREATED); 
+	}
 }
