@@ -12,7 +12,7 @@ import vp.spring.rcs.model.Message;
 @Component
 public interface MessageRepository extends JpaRepository<Message, Long>{
 	
-	public List<Message> findByUserUsername(String user);
+	public List<Message> findByUserUsername(String user); // make it a page
 	public Page<Message> findByTitleContainsIgnoreCase(String title, Pageable page);
 
 }

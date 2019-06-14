@@ -71,7 +71,7 @@ public class CommentController {
 		}
 	}
 	
-	@DeleteMapping("api/comment/{id}") // can't delete anyway, necessary to leave all child comments present
+	@DeleteMapping("api/comment/{id}") // necessary to leave all child comments present
 	public ResponseEntity<CommentDto> deleteComment(@AuthenticationPrincipal User user,
 													@PathVariable long id){
 		Comment found = commentService.findById(id);
@@ -85,7 +85,7 @@ public class CommentController {
 		}
 	}
 	
-	@PostMapping("api/comment/message/{id}") // both work!
+	@PostMapping("api/comment/message/{id}")
 	public ResponseEntity<CommentDto> addComment(@AuthenticationPrincipal User user,
 												@RequestBody CommentDto comment,
 												@PathVariable long id) {
@@ -98,8 +98,7 @@ public class CommentController {
 		newComm.setText(comment.getText());
 		newComm = commentService.save(newComm);
 		
-		// frontend-side, it has to pass comment id if this is a child comment; needs a separate function to 
-		// make a child comment, while the call to api is the same
+		// frontend-side, it has to pass comment id if this is a child comment
 		if (comment.getParentCommentId() != 0) {
 			newComm.setParentComment(commentService.findById(comment.getParentCommentId()));
 			newComm = commentService.save(newComm);

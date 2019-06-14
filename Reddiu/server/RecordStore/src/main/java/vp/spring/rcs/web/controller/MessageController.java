@@ -57,8 +57,7 @@ public class MessageController {
 	
 	}
 	
-	// jpa repo supports paginated queries
-	// url: http://localhost:8080/api/messages/search?title=test&page=0&size=2
+
 	@GetMapping("api/messages/search")
 	public ResponseEntity<PageMessageDto> findByTitle(@RequestParam String title, Pageable page){
 		
@@ -97,7 +96,7 @@ public class MessageController {
 		}
 	}
 	
-	@PutMapping("api/messages/{id}")  // works!
+	@PutMapping("api/messages/{id}")  
 	public ResponseEntity<MessageDto> editMessage(@PathVariable long id,
 												@RequestBody MessageDto toEdit,
 												@AuthenticationPrincipal User user){
@@ -117,7 +116,7 @@ public class MessageController {
 	}
 	
 	
-	@PostMapping("api/messages/new") // works!
+	@PostMapping("api/messages/new") 
 	public ResponseEntity<MessageDto> addMsg(@AuthenticationPrincipal User user,
 											@RequestBody MessageDto message){
 		
