@@ -10,18 +10,26 @@ export class MessageService {
 
   constructor(private http: HttpClient) { }
 
-  getPage(page: number): Observable<PageC> {
+  getPage(page: number, param?: string, query?:string): Observable<PageC> {
 
    /* let params = new HttpParams();
     params = params.append('page', page.toString());
     params = params.append('size', '2');
     return this.http.get<PageC>('api/messages', {params})*/
 
+    if (param && query) {
+      return this.http.get<PageC>(`/api/messages/search?${param}=${query}&page=${page}&size=2`);
+    }
+
     return this.http.get<PageC>(`/api/messages?page=${page}&size=2`);
   }
 
   getMessageById(id: number): Observable<MessageC> {
     return this.http.get<MessageC>(`/api/messages/${id}`);
+  }
+
+  getMessageByTitle(title: string): Observable<PageC>{
+    return this.http.get<PageC>(`/api/messages/search?title=${title}&page=0&size=2`);
   }
 
   deleteMessageById(id: number): Observable<MessageC> {

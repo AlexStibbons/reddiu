@@ -58,8 +58,8 @@ public class MessageController {
 	}
 	
 	// jpa repo supports paginated queries
-	// url: http://localhost:8080/api/messages/title?title=titl&page=0&size=1
-	@GetMapping("api/messages/title")
+	// url: http://localhost:8080/api/messages/search?title=test&page=0&size=2
+	@GetMapping("api/messages/search")
 	public ResponseEntity<PageMessageDto> findByTitle(@RequestParam String title, Pageable page){
 		
 		Page<Message> pageFound = messageService.findByTitle(title, page);

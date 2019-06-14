@@ -1,3 +1,4 @@
-<p>
-  add-comment works!
-</p>
+<form (ngSubmit)="addComment()">
+  <input name="comment-text" placeholder="reply..." [(ngModel)]="comment.text"/>
+  <input type="submit" value="Reply"/>
+</form>

@@ -1,3 +1,9 @@
-<p>
-  comment works!
-</p>
+<li> {{thisComment.text}} -- {{thisComment.user}}
+    <app-add-comment [parentCommentId]="thisComment.id" (addCommentEmit)="addCommentToMain($event)"></app-add-comment>
+</li>
+      <ul *ngIf="thisComment.childComments">
+        <li *ngFor="let childComment of thisComment.childComments">
+          <app-comment [thisComment]="childComment" ></app-comment>
+
+        </li>
+      </ul>
