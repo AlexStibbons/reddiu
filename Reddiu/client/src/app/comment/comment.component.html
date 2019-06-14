@@ -3,7 +3,7 @@
 </li>
       <ul *ngIf="thisComment.childComments">
         <li *ngFor="let childComment of thisComment.childComments">
-          <app-comment [thisComment]="childComment" ></app-comment>
+          <app-comment [thisComment]="childComment" (addComment)="addCommentToMain($event)"></app-comment>
 
         </li>
       </ul>
