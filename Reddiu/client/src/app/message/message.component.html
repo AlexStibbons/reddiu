@@ -7,8 +7,6 @@
   <app-add-comment (addCommentEmit)="addComment($event)"></app-add-comment>
 
   <h3>Comments</h3>
-  <p>...where it the extra 'li' coming from?? <br>
-  <strong>Sends child comment, but does NOT make a post request for a child comment of child comment</strong></p>
   <div *ngIf="message.comments">
     <ul *ngFor="let comment of message.comments">
         <app-comment [thisComment]="comment" (addComment)="addComment($event)"></app-comment>
