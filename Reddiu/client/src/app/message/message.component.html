@@ -3,13 +3,15 @@
   <h1>{{ message.title }}</h1>
   <h4> Category: {{ message.category.name }}</h4>
   <p>{{ message.text }}</p>
-  <p> Posted by: {{ message.user }}</p>
+  <p> Posted by: {{ message.user }} <br>
+  <button *ngIf="isCreator() && !isDeleted" (click)="deleteMessage(message.id)"> Delete </button></p>
   <app-add-comment (addCommentEmit)="addComment($event)"></app-add-comment>
 
   <h3>Comments</h3>
   <div *ngIf="message.comments">
     <ul *ngFor="let comment of message.comments">
-        <app-comment [thisComment]="comment" (addComment)="addComment($event)"></app-comment>
+        <app-comment [thisComment]="comment" (addComment)="addComment($event)"
+        (deleteCommentEmit)="deleteComment($event)"></app-comment>
 
     </ul>
 

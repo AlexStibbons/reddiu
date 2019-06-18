@@ -3,6 +3,8 @@ import { MessageService } from '../services/message.service';
 import { ActivatedRoute } from '@angular/router';
 import { MessageC, CommentC } from '../common.models';
 import { CommentService } from '../services/comment.service';
+import { AuthenticationService } from '../security/authentication.service';
+
 
 @Component({
   selector: 'app-message',
@@ -18,9 +20,13 @@ export class MessageComponent implements OnInit {
   // for add comment
   parentComment: CommentC;
 
+  // helpers
+  isDeleted: boolean;
+
   constructor(private msgService: MessageService,
               private route: ActivatedRoute,
-              private commSer: CommentService) { }
+              private commSer: CommentService,
+              private auth: AuthenticationService) { }
 
   ngOnInit() {
     this.getMessage();
@@ -49,10 +55,29 @@ export class MessageComponent implements OnInit {
     );
   }
 
-  addChildComment(childComment: CommentC){ // child received from comment component
+  // useless function --> this is done by addComment()
+  addChildComment(childComment: CommentC){
     this.commSer.postComment(this.message.id, childComment).subscribe(
       () => {
         this.getMessage();
+      }
+    );
+  }
+
+  deleteComment(id: number) {
+    this.commSer.deleteComment(id).subscribe(
+      () => {
+        this.getMessage();
+      }
+    );
+
+  }
+
+  deleteMessage(id: number) {
+    this.msgService.deleteMessageById(id).subscribe(
+      () => {
+        this.getMessage();
+        this.isDeleted = true;
       }
     );
   }
@@ -61,6 +86,14 @@ export class MessageComponent implements OnInit {
     this.parentComment = {
       text: '',
       message: this.message
+    }
+  }
+
+  isCreator(){
+    if (this.message.user === this.auth.getCurrentUser().username) {
+      return true;
+    } else {
+      return false;
     }
   }
 
