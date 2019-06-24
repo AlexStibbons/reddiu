@@ -1,3 +1,16 @@
-<p>
-  add-msg works!
-</p>
+<div *ngIf="categories">
+<form (ngSubmit)="addPost()">
+  <label for="post-title" id="post-title">Title:</label>
+  <input type="text" name="input-post-title-" id="input-post-title" [(ngModel)]="post.title"/>
+
+  <label for="post-cat" id="post-cat">Category:</label>
+  <select name="input-post-cat-election" id="input-post-cat" [(ngModel)]="post.category">
+    <option *ngFor="let c of categories" [ngValue]="c">{{ c.name }} </option>
+  </select>
+
+  <label for="post-text" id="post-text">Text:</label>
+  <textarea id="input-post-text" name="input-post-text-" [(ngModel)]="post.text"></textarea>
+
+  <input type="submit" value="Post" />
+</form>
+</div>

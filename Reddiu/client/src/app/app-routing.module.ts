@@ -5,8 +5,10 @@ import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MainComponent } from './main/main.component';
 import { MessageComponent } from './message/message.component';
+import { AddMsgComponent } from './add-msg/add-msg.component';
 
 const routes: Routes = [
+  { path: 'post', component: AddMsgComponent},
   { path: 'message/:id', component: MessageComponent/*, canActivate:[CanActivateAuthGuard]*/ },
   { path: 'main', component: MainComponent/*, canActivate:[CanActivateAuthGuard]*/ },
   { path: 'login', component: LoginComponent},

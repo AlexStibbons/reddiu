@@ -5,7 +5,25 @@
   <p>{{ message.text }}</p>
   <p> Posted by: {{ message.user }} <br>
   <button *ngIf="isCreator() && !isDeleted" (click)="deleteMessage(message.id)"> Delete </button></p>
+  <button *ngIf="isCreator()" (click)="toEdit()"> Edit </button>
   <app-add-comment (addCommentEmit)="addComment($event)"></app-add-comment>
+
+  <div *ngIf="editing">
+    <form (ngSubmit)="editMsg()">
+      <label for="post-title" id="post-title">Title:</label>
+      <input type="text" name="input-post-title-" id="input-post-title" [(ngModel)]="message.title" />
+
+      <label for="post-cat" id="post-cat">Category:</label>
+      <select name="input-post-cat-election" id="input-post-cat" [(ngModel)]="message.category">
+        <option *ngFor="let c of categories" [ngValue]="c">{{ c.name }} </option>
+      </select>
+
+      <label for="post-text" id="post-text">Text:</label>
+      <textarea id="input-post-text" name="input-post-text-" [(ngModel)]="message.text"></textarea>
+
+      <input type="submit" value="Edit" />
+    </form>
+  </div>
 
   <h3>Comments</h3>
   <div *ngIf="message.comments">

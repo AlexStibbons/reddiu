@@ -127,4 +127,8 @@ export class MainComponent implements OnInit {
     this.router.navigate([`/message/${id}`]);
   }
 
+  newMessage(){
+    this.router.navigate(['/post']);
+  }
+
 }

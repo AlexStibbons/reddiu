@@ -1,10 +1,13 @@
 <form (ngSubmit)="searchByTitle()">
-    <div class="form-group">
-      <label for="title-search" id="title-search">Search messages </label>
-      <input name="title-search" class="form-control" id="title-search" placeholder="search..." [(ngModel)]="searchTitle"/>
-      <input type="submit" value="Search"/>
-    </div>
-  </form>
+  <div class="form-group">
+    <label for="title-search" id="title-search">Search messages </label>
+    <input name="title-search" class="form-control" id="title-search" placeholder="search..."
+      [(ngModel)]="searchTitle" />
+    <input type="submit" value="Search" />
+  </div>
+</form>
+
+<button (click)="newMessage()">Add post</button>
 
 <div *ngIf="page">
   <button (click)="firstPage()" class="btn-default"> first page </button>

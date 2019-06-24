@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from '../services/message.service';
 import { ActivatedRoute } from '@angular/router';
-import { MessageC, CommentC } from '../common.models';
+import { MessageC, CommentC, Category } from '../common.models';
 import { CommentService } from '../services/comment.service';
 import { AuthenticationService } from '../security/authentication.service';
+import { CategoryService } from '../services/category.service';
 
 
 @Component({
@@ -23,14 +24,20 @@ export class MessageComponent implements OnInit {
   // helpers
   isDeleted: boolean;
 
+  // editing helper
+  editing = false;
+  categories: Category[];
+
   constructor(private msgService: MessageService,
               private route: ActivatedRoute,
               private commSer: CommentService,
-              private auth: AuthenticationService) { }
+              private auth: AuthenticationService,
+              private categoryService: CategoryService) { }
 
   ngOnInit() {
     this.getMessage();
     this.resetParentComment();
+    this.getCategories();
   }
 
   getMessage(){
@@ -95,6 +102,27 @@ export class MessageComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  toEdit() {
+    this.editing = true;
+  }
+
+  editMsg(){
+    this.msgService.editMessage(this.id, this.message).subscribe(
+      (res: MessageC) => {
+        this.message = res;
+        this.editing = false;
+      }
+    );
+  }
+
+  getCategories(){
+    this.categoryService.getCategories().subscribe(
+      (res: Category[]) => {
+        this.categories = res;
+      }
+    );
   }
 
 }
