@@ -1,0 +1,16 @@
+<div *ngIf="comment">
+  <p><strong>{{ comment.username }}</strong></p>
+  <p> {{ comment.text }}</p>
+
+  <app-add-comment [parentId]="comment.id" (addComment)="addCommentA($event)"></app-add-comment>
+
+  <div *ngIf="comment.childComments">
+    <ul *ngFor="let childComm of comment.childComments">
+      <li>
+        <app-comment [comment]="childComm" (addComment)="addCommentA($event)"></app-comment>
+      </li>
+    </ul>
+
+  </div>
+
+</div>

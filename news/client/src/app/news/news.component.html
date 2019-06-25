@@ -1,0 +1,16 @@
+<div *ngIf="news">
+  <h1>{{ news.title }}</h1>
+  <p> <em>{{ news.category.name }} </em></p>
+  <p> {{ news.text }}</p>
+
+  <app-add-comment (addComment)="addComment($event)"> </app-add-comment>
+
+  <div *ngIf="news.comments">
+    <ul *ngFor="let comment of news.comments">
+      <li>
+        <app-comment [comment]="comment" (addComment)="addComment($event)"></app-comment>
+      </li>
+    </ul>
+
+  </div>
+</div>
