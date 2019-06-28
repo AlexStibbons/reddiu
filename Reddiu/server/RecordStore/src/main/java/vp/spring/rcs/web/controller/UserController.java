@@ -71,13 +71,15 @@ public class UserController {
 	}
 	
 	@GetMapping("api/roles")
-	public ResponseEntity<List<SecurityAuthority>> findRoles(){
+	public ResponseEntity<List<String>> findRoles(){
 		List<SecurityAuthority> found = userDetailsService.findAllAuthorities();
 		
-	/*	List<String> authorities = found.stream()
+	/*	it wont work when there's a list of strings???*/
+	  
+	 List<String> authorities = found.stream()
 									.map(SecurityAuthority::getName)
-									.collect(Collectors.toList());*/
-		return new ResponseEntity<>(found, HttpStatus.OK);
+									.collect(Collectors.toList());
+		return new ResponseEntity<>(authorities, HttpStatus.OK);
 	}
 
 	/*@RequestMapping(value = "/api/shopping-cart", method = RequestMethod.GET)
@@ -94,24 +96,7 @@ public class UserController {
 		return new ResponseEntity<>(retVal, HttpStatus.OK);
 	}*/
 
-	/*// Administrator vrsi registraciju. Mora da postoji token u zahtevu upucenog ka /api/register	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/api/register", method = RequestMethod.POST)
-	public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) {
-        SecurityUser user = new SecurityUser();
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setUsername(userDTO.getUsername());
-        user.setPassword(userDTO.getPassword());
-        
-        user = userDetailsService.register(user, userDTO.getRoles());
-        
-        if (user != null) {
-        	return new ResponseEntity<>(new UserDTO(user), HttpStatus.CREATED); 
-        } else { // ako vec postoji korisnik sa tim korisnickim imenom
-        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }        
-	}*/
+
 	
 	
 }
