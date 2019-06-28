@@ -1,19 +1,23 @@
 package vp.spring.rcs.web.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import vp.spring.rcs.model.user.SecurityAuthority;
 import vp.spring.rcs.model.user.SecurityUser;
 import vp.spring.rcs.security.TokenUtils;
 import vp.spring.rcs.service.UserDetailsServiceImpl;
@@ -64,6 +68,16 @@ public class UserController {
         } else { // ako vec postoji korisnik sa tim korisnickim imenom
         	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }        
+	}
+	
+	@GetMapping("api/roles")
+	public ResponseEntity<List<SecurityAuthority>> findRoles(){
+		List<SecurityAuthority> found = userDetailsService.findAllAuthorities();
+		
+	/*	List<String> authorities = found.stream()
+									.map(SecurityAuthority::getName)
+									.collect(Collectors.toList());*/
+		return new ResponseEntity<>(found, HttpStatus.OK);
 	}
 
 	/*@RequestMapping(value = "/api/shopping-cart", method = RequestMethod.GET)

@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators'
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { JwtUtilsService } from '../security/jwt-utils.service';
+import { NewUser } from '../common.models';
 
 
 @Injectable()
@@ -22,10 +23,10 @@ export class AuthenticationService {
         map((res: any) => {
           let token = res && res['token'];
           if (token) {
-            localStorage.setItem('currentUser', JSON.stringify({ 
-                                      username: username, 
-                                      roles:this.jwtUtilsService.getRoles(token), 
-                                      token: token 
+            localStorage.setItem('currentUser', JSON.stringify({
+                                      username: username,
+                                      roles:this.jwtUtilsService.getRoles(token),
+                                      token: token
                                     }));
             return true;
           }
@@ -40,6 +41,15 @@ export class AuthenticationService {
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     var token = currentUser && currentUser.token;
     return token ? token : "";
+  }
+
+  getRoles(): Observable<string[]>{
+    return this.http.get<string[]>('/api/roles');
+  }
+
+  register(user: NewUser): Observable<NewUser> {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<NewUser>('/api/register', JSON.stringify(user), {headers});
   }
 
   logout(): void {
@@ -59,7 +69,7 @@ export class AuthenticationService {
       return undefined;
     }
   }
-  
+
   isAdmin(): boolean {
     const currentUser = this.getCurrentUser();
     if (!currentUser) {

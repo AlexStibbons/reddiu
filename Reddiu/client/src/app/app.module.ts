@@ -21,6 +21,7 @@ import { MessageComponent } from './message/message.component';
 import { CommentComponent } from './comment/comment.component';
 import { AddMsgComponent } from './add-msg/add-msg.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AddCommentComponent } from './add-comment/add-comment.component';
     MessageComponent,
     CommentComponent,
     AddMsgComponent,
-    AddCommentComponent
+    AddCommentComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

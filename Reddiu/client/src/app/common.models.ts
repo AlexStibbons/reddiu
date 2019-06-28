@@ -100,6 +100,33 @@ export class CommentC implements CommentInt {
     this.childComments = spec.childComments;
   }
 }
+
+interface NewUserInt {
+  id?: number;
+  firstName?: string;
+  lastName?: string;
+  username?: string;
+  password?: string;
+  roles?: any[];
+}
+
+export class NewUser implements NewUserInt {
+  public id?: number;
+  public firstName: string;
+  public lastName: string;
+  public username: string;
+  public password: string;
+  public roles: any[];
+
+  constructor(spec: NewUserInt) {
+    this.id = spec.id;
+    this.firstName = spec.firstName;
+    this.lastName = spec.lastName;
+    this.username = spec.username;
+    this.password = spec.password;
+    this.roles = spec.roles;
+  }
+}
 /* FROM CLASS
 export class Page {
   private page: any = {

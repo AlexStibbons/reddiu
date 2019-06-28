@@ -1,0 +1,21 @@
+<form (ngSubmit)="register()">
+
+  <label for="firstname">First name:</label>
+  <input name="firstname" id="firstname" [(ngModel)]="registerUser.firstName"/>
+
+  <label for="lastname">Last name:</label>
+  <input name="lastname" id="lastname" [(ngModel)]="registerUser.lastName" />
+
+  <label for="username"> Username: </label>
+  <input name="username" id="username" [(ngModel)]="registerUser.username" />
+
+  <label for="password">Password:</label>
+  <input name="password" type="password" id="password" [(ngModel)]="registerUser.password" />
+
+  <label for="roles">Roles: </label>
+  <select name="roles" [(ngModel)]="registerUser.roles">
+    <option *ngFor="let r of roles" [ngValue]="r"> {{ r.name }} </option>
+  </select>
+
+  <input type="submit" value="Register" />
+</form>
