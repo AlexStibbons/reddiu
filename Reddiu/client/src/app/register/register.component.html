@@ -1,7 +1,7 @@
 <form (ngSubmit)="register()">
 
   <label for="firstname">First name:</label>
-  <input name="firstname" id="firstname" [(ngModel)]="registerUser.firstName"/>
+  <input name="firstname" id="firstname" [(ngModel)]="registerUser.firstName" />
 
   <label for="lastname">Last name:</label>
   <input name="lastname" id="lastname" [(ngModel)]="registerUser.lastName" />
@@ -12,10 +12,12 @@
   <label for="password">Password:</label>
   <input name="password" type="password" id="password" [(ngModel)]="registerUser.password" />
 
-  <!--label for="roles">Roles: </label>
-  <select name="roles" [(ngModel)]="registerUser.roles">
-    <option *ngFor="let r of roles" [ngValue]="r"> {{ r.name }} </option>
-  </select-->
+  <label for="roles">Roles: </label>
+  <select name="roles" [(ngModel)]="addRole">
+    <option *ngFor="let r of roles" [ngValue]="r"> {{ r }} </option>
+  </select>
+  <!--....binding to an ARRAY, not sticking a sole string where an array is supposed to be
+ngModel should go somehting like registerUser.roles.push(r)-->
 
   <input type="submit" value="Register" />
 </form>

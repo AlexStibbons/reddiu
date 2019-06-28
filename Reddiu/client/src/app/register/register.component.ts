@@ -10,8 +10,11 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  roles: any[]; // it can't parse a String array list??
+  roles: any[];
   registerUser: NewUser;
+
+  // helper
+  addRole: string;
 
   constructor(private auth: AuthenticationService,
               private router: Router) {
@@ -20,8 +23,10 @@ export class RegisterComponent implements OnInit {
       lastName: '',
       username: '',
       password: '',
-      roles: ['ROLE_USER']
+      //roles: ['ROLE_USER']
+      roles: []
     };
+    this.addRole = '';
    }
 
   ngOnInit() {
@@ -37,8 +42,10 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    this.registerUser.roles.push(this.addRole);
     this.auth.register(this.registerUser).subscribe(
-      () => {
+      (res: NewUser) => {
+        console.log(res);
         this.router.navigate(['/login']);
       }
     );
