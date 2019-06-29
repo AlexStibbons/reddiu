@@ -1,0 +1,11 @@
+<form (ngSubmit)="addIssue()">
+
+  <label for="username">Username:</label>
+  <input name="username" id="username" [(ngModel)]="newIssue.username"/>
+
+  <label for="text">Text:</label>
+  <input name="text" id="text" [(ngModel)]="newIssue.text"/>
+
+  <input type="submit" value="Add issue"/>
+
+</form>

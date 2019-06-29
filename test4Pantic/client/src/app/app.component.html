@@ -1,0 +1,52 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">PH</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home</a></li>
+				<li><a href="#about">About</a></li>
+				<li><a href="#contact">Contact</a></li>
+			</ul>
+			<ul class="nav navbar-nav pull-right">
+				<li *ngIf="isLoggedIn()"><a (click)="logout()">Logout</a></li>
+				<li *ngIf="!isLoggedIn()"><a [routerLink]="['/login']">Login</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container" role="main">
+	
+	<div class="jumbotron">
+		<h1>Project Helper</h1>
+		<p>Organize your projects profesionally</p>
+	</div>
+
+<!--form (ngSubmit)="postStudent()">
+
+  <label for="input-name">Name: </label>
+  <input name="input-name" id="input-name" [(ngModel)]="newstudent.name" /><br />
+
+  <label for="input-surname">Surname: </label>
+  <input name="input-surname" id="input-surname" [(ngModel)]="newstudent.surname" /><br />
+
+  <label for="input-snumber">Number: </label>
+  <input name="input-snumber" id="input-snumber" [(ngModel)]="newstudent.snumber" /><br />
+
+	<label for="category" id="category"> Category: </label>
+    <select name="choose-category" id="choose-category" [(ngModel)]="forComponent.category">
+      <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
+    </select>
+
+  <input type="submit" value="Save" /-->
+
+	<router-outlet></router-outlet>
+
+</div>

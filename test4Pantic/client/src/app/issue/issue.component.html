@@ -1,0 +1,9 @@
+<li> {{issue.text}} <br> Author: {{ issue.username }} <br>
+  votes: {{ issue.votes }} <br>
+  <div *ngIf="loggedIn()">
+    <button (click)="upvote()">upvote</button> <br>
+  <button (click)="downvote()">downvote</button>
+  </div>
+
+
+</li>
