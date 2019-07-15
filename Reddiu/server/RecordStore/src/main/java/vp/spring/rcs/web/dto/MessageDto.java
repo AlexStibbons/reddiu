@@ -19,6 +19,8 @@ public class MessageDto {
 	private String user;
 	
 	private List<CommentDto> comments = new ArrayList<>();
+	
+	private long score;
 
 	public MessageDto() {
 		super();
@@ -34,6 +36,7 @@ public class MessageDto {
 						.filter(c -> c.getParentComment() == null)
 						.map(CommentDto::new)
 						.collect(Collectors.toList());
+		this.score = message.getScore();
 
 	}
 
@@ -83,6 +86,14 @@ public class MessageDto {
 
 	public void setComments(List<CommentDto> comments) {
 		this.comments = comments;
+	}
+
+	public long getScore() {
+		return score;
+	}
+
+	public void setScore(long score) {
+		this.score = score;
 	}
 	
 	

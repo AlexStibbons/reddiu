@@ -22,6 +22,8 @@ public class CommentDto {
 
 	private List<CommentDto> childComments = new ArrayList<>();
 
+	private long score;
+	
 	public CommentDto() {
 		super();
 	}
@@ -41,6 +43,7 @@ public class CommentDto {
 								.map(CommentDto::new)
 								.collect(Collectors.toList()); 
 			}
+		this.score = comment.getScore();
 		}
 
 	public long getId() {
@@ -99,6 +102,13 @@ public class CommentDto {
 		this.parentCommentId = parentCommentId;
 	}
 	
+	public long getScore() {
+		return score;
+	}
+
+	public void setScore(long score) {
+		this.score = score;
+	}	
 	
 
 }

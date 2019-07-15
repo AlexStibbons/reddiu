@@ -38,6 +38,11 @@ public class Comment {
 	
 	@OneToMany(mappedBy = "parentComment")
 	private Set<Comment> childComments = new HashSet<>();
+	
+	@OneToMany(mappedBy = "comment")
+	private Set<Vote> votes = new HashSet<>();
+	
+	private long score = 1;
 
 	public Comment() {
 		super();
@@ -49,6 +54,7 @@ public class Comment {
 		this.text = text;
 		this.user = user;
 		this.message = message;
+		this.score = 1;
 	}
 	
 	/*public Comment(long id, String text, SecurityUser user, Message message, Set<Comment> childComment) {
@@ -109,6 +115,12 @@ public class Comment {
 		this.parentComment = parentComment;
 	}
 	
-	
+	public long getScore() {
+		return score;
+	}
+
+	public void setScore(long score) {
+		this.score = score;
+	}	
 
 }

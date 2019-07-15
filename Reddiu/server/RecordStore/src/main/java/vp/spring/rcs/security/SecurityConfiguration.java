@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true) // da bi anotacije @PreAuthorize nad metodama radile
+@EnableGlobalMethodSecurity(prePostEnabled = true) 
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -66,8 +66,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				//.antMatchers("/**").permitAll()
 				.anyRequest().permitAll(); 
 				
-		// add these: @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
-/* OLD 
+		// add these to controllers: @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+								   //@PreAuthorize("isAuthenticated()")
+		
+/* 			OLD AUTHORIZATION: 
+ *  
  * 			.authorizeRequests() // bez logovanja dostupni samo servisi login
 				.antMatchers("/api/login").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/**").hasAuthority("ROLE_USER")
@@ -75,10 +78,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.DELETE, "/api/**").hasAuthority("ROLE_ADMIN")
 				.antMatchers(HttpMethod.PUT, "/api/**").hasAuthority("ROLE_ADMIN")
 				.antMatchers("/**").permitAll()
-				.anyRequest().authenticated(); // za ostale akcije se mora biti ulogovan */
+				.anyRequest().authenticated(); 
+ */
 				
-		// pre standardnog Spring filtera, postavlja se nas filter za postavljanje korisnika na osnovu 
-		// JWT tokena u zahtevu
 		httpSecurity.addFilterBefore(authenticationTokenFilterBean(),
 				UsernamePasswordAuthenticationFilter.class);
 	}

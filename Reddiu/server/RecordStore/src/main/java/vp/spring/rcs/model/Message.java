@@ -36,6 +36,11 @@ public class Message {
 	@OneToMany(mappedBy = "message", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private Set<Comment> comments = new HashSet<>();
 	
+	@OneToMany(mappedBy = "message")
+	private Set<Vote> votes = new HashSet<>();
+	
+	private long score = 1;
+	
 	/*@ManyToOne
 	private Group group;*/
 
@@ -50,7 +55,9 @@ public class Message {
 		this.text = text;
 		this.category = category;
 		this.user = user;
+		this.score = 1;
 	}
+
 
 	/*public Message(long id, String title, String text, Category category, SecurityUser user, Group group) {
 		super();
@@ -108,6 +115,14 @@ public class Message {
 
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
+	}
+	
+	public long getScore() {
+		return score;
+	}
+
+	public void setScore(long score) {
+		this.score = score;
 	}
 /*
 	public Group getGroup() {

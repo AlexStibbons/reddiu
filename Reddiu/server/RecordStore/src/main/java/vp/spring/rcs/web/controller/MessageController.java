@@ -107,6 +107,7 @@ public class MessageController {
 		found.setId(id);
 		found.setTitle(toEdit.getTitle());
 		found.setText(toEdit.getText());
+		found.setScore(toEdit.getScore());
 		found.setCategory(categoryService.findById(toEdit.getCategory().getId()));
 		found = messageService.save(found);
 		return new ResponseEntity<>(new MessageDto(found), HttpStatus.OK);
@@ -127,6 +128,7 @@ public class MessageController {
 		msg.setText(message.getText());
 		msg.setCategory(categoryService.findById(message.getCategory().getId()));
 		msg.setUser(creator);
+		msg.setScore(1);
 		msg = messageService.save(msg);
 		
 		return new ResponseEntity<>(new MessageDto(msg), HttpStatus.CREATED); 

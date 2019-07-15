@@ -64,6 +64,7 @@ public class CommentController {
 		
 		if (found!=null && found.getUser().getUsername().equalsIgnoreCase(user.getUsername())) {
 			found.setText(edited.getText());
+			found.setScore(edited.getScore());
 			found = commentService.save(found);
 			return new ResponseEntity<>(new CommentDto(found), HttpStatus.OK);
 		} else {
@@ -96,6 +97,7 @@ public class CommentController {
 		newComm.setMessage(msg);
 		newComm.setUser(commenter);
 		newComm.setText(comment.getText());
+		newComm.setScore(1);
 		newComm = commentService.save(newComm);
 		
 		// frontend-side, it has to pass comment id if this is a child comment
