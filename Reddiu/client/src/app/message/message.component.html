@@ -6,6 +6,7 @@
   <p> Posted by: {{ message.user }} <br>
   <button *ngIf="isCreator() && !isDeleted" (click)="deleteMessage(message.id)"> Delete </button></p>
   <button *ngIf="isCreator()" (click)="toEdit()"> Edit </button>
+  <p> <button (click)="upvoteMsg(msgVote)">yay</button> {{ message.score }} <button (click)="downvoteMsg(msgVote)">nay</button></p>
   <app-add-comment (addCommentEmit)="addComment($event)"></app-add-comment>
 
   <div *ngIf="editing">

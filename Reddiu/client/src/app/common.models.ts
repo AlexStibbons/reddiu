@@ -1,3 +1,7 @@
+/* Contains interfaces and classes for:
+  Page, Category, Message, Comment, New user, and Vote
+*/
+
 interface PageInt {
   size: number;
   index: number;
@@ -35,6 +39,7 @@ interface MessageInt {
   category?: Category;
   user?: string;
   comments?: CommentC[];
+  score?: number;
 }
 
 interface CategoryInt {
@@ -50,6 +55,7 @@ interface CommentInt {
   parentComment?: boolean;
   parentCommentId?: number;
   childComments?: CommentC[];
+  score?: number;
 }
 
 export class Category implements CategoryInt {
@@ -70,6 +76,7 @@ export class MessageC implements MessageInt {
   public category?: Category;
   public user?: string;
   public comments?: CommentC[];
+  public score?: number;
 
   constructor(spec: MessageInt) {
     this.id = spec.id;
@@ -78,6 +85,7 @@ export class MessageC implements MessageInt {
     this.category = spec.category;
     this.user = spec.user;
     this.comments = spec.comments;
+    this.score = spec.score;
   }
 }
 
@@ -89,6 +97,7 @@ export class CommentC implements CommentInt {
   public parentComment?: boolean;
   public parentCommentId?: number;
   public childComments?: CommentC[];
+  public score?: number;
 
   constructor(spec: CommentInt) {
     this.id = spec.id;
@@ -98,6 +107,7 @@ export class CommentC implements CommentInt {
     this.parentComment = spec.parentComment;
     this.parentCommentId = spec.parentCommentId;
     this.childComments = spec.childComments;
+    this.score = spec.score;
   }
 }
 
@@ -127,15 +137,30 @@ export class NewUser implements NewUserInt {
     this.roles = spec.roles;
   }
 }
-/* FROM CLASS
-export class Page {
-  private page: any = {
-    size: 2,
-    index: 0,
-    content: [],
-    hasNext: true,
-    hasPrevious: false,
-    numberOfMessages: 0,
-    totalPages: 0
+
+interface VoteInt {
+  id: number;
+  upvote: boolean;
+  downvote: boolean;
+  username: string;
+  messageId?: number;
+  commentId?: number;
+}
+
+export class Vote implements VoteInt {
+  public id: number;
+  public upvote: boolean;
+  public downvote: boolean;
+  public username: string;
+  public messageId?: number;
+  public commentId?: number;
+
+  constructor(spec: VoteInt) {
+    this.id = spec.id;
+    this.upvote = spec.upvote;
+    this.downvote = spec.downvote;
+    this.username = spec.username;
+    this.messageId = spec.messageId;
+    this.commentId = spec.commentId;
   }
-}*/
+}

@@ -22,6 +22,7 @@ import { CommentComponent } from './comment/comment.component';
 import { AddMsgComponent } from './add-msg/add-msg.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { RegisterComponent } from './register/register.component';
+import { VoteService } from './services/vote.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { RegisterComponent } from './register/register.component';
     JwtUtilsService,
     CategoryService,
     MessageService,
-    CommentService
+    CommentService,
+    VoteService
   ],
   bootstrap: [AppComponent]
 })

@@ -2,6 +2,9 @@
 A Reddit clone that's not really a Reddit clone 
 with some basic functionalities
 
+Backend: Java Spring Boot, JPA, MySql
+Frontend: Angular 7, Bootstrap
+
 ##To Dos:
 
 ### Current Functionalities
@@ -22,7 +25,7 @@ with some basic functionalities
 - user's posts
 - fix delete comment button
 - edit-in-place instead of edit form
+- can up/downvoting be neater frontend-side?
 
 ### Bootstrap
-- add dropdown menu
-- add general styling
+- styling

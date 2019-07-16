@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from '../services/message.service';
 import { ActivatedRoute } from '@angular/router';
-import { MessageC, CommentC, Category } from '../common.models';
+import { MessageC, CommentC, Category, Vote } from '../common.models';
 import { CommentService } from '../services/comment.service';
 import { AuthenticationService } from '../security/authentication.service';
 import { CategoryService } from '../services/category.service';
+import { VoteService } from '../services/vote.service';
 
 
 @Component({
@@ -28,16 +29,21 @@ export class MessageComponent implements OnInit {
   editing = false;
   categories: Category[];
 
+  // voting
+  msgVote: Vote;
+
   constructor(private msgService: MessageService,
               private route: ActivatedRoute,
               private commSer: CommentService,
               private auth: AuthenticationService,
-              private categoryService: CategoryService) { }
+              private categoryService: CategoryService,
+              private voteService: VoteService) { }
 
   ngOnInit() {
     this.getMessage();
     this.resetParentComment();
     this.getCategories();
+    this.getMsgVote();
   }
 
   getMessage(){
@@ -92,8 +98,9 @@ export class MessageComponent implements OnInit {
   resetParentComment(){
     this.parentComment = {
       text: '',
-      message: this.message
-    }
+      message: this.message,
+      score: 1
+    };
   }
 
   isCreator(){
@@ -124,5 +131,79 @@ export class MessageComponent implements OnInit {
       }
     );
   }
+
+// VOTING
+
+  getMsgVote(){
+    this.voteService.getMsgVote(this.id).subscribe(
+      (res: Vote) => {
+        this.msgVote = res;
+        //this.getMessage();
+        console.log(this.msgVote);
+      }
+    );
+  }
+
+// up/downvote in services
+  upvotingMsg(voted: Vote) {
+    this.voteService.upvote(voted).subscribe(
+      (res: Vote) => {
+        this.msgVote = res;
+        this.getMessage();
+      }
+    );
+  }
+
+  downvotingMsg(voted: Vote) {
+    this.voteService.downvote(voted).subscribe(
+      (res: Vote) => {
+        this.msgVote = res;
+        this.getMessage();
+      }
+    );
+  }
+
+  // up/downvote for message
+
+  // can there be just a vote function - does it matter whether the
+  // user pressed upvote or downvote?
+  // also
+  // can the if cases be somehow centralized so DRY's followed?
+  upvoteMsg(voted: Vote) {
+    if (voted.upvote === false) {
+      voted.upvote = true;
+      voted.downvote = false;
+      this.upvotingMsg(voted);
+    } else if (voted.upvote === true && voted.downvote === false) {
+      voted.upvote = false;
+      voted.downvote = false;
+      this.downvotingMsg(voted);
+    } else {
+      if (voted.upvote === true) {
+        voted.upvote = false;
+        voted.downvote = true;
+        this.downvotingMsg(voted);
+      }
+    }
+  }
+
+  downvoteMsg(voted: Vote) {
+    if (!voted.downvote) {
+      voted.downvote = true;
+      voted.upvote = false;
+      this.downvotingMsg(voted);
+    } else if (voted.downvote && !voted.upvote) {
+      voted.upvote = false;
+      voted.downvote = false;
+      this.upvotingMsg(voted);
+    } else if (voted.downvote) {
+      voted.downvote = false;
+      voted.upvote = true;
+      this.upvotingMsg(voted);
+    }
+  }
+
+  // up/downvote comments [once a comment is voted upon, the message should reload in
+  // order to show the updated comment scores]
 
 }
