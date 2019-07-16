@@ -205,5 +205,7 @@ export class MessageComponent implements OnInit {
 
   // up/downvote comments [once a comment is voted upon, the message should reload in
   // order to show the updated comment scores]
-
+  voteComm(){
+    this.getMessage();
+  }
 }

@@ -8,8 +8,7 @@ Frontend: Angular 7, Bootstrap
 ##To Dos:
 
 ### Current Functionalities
-- add edit comment to fronend
-- add edit post to frontend
+- add edit comment to frontend
 - add filtering posts by category to backend + frontend
 
 ### Private Groups
@@ -26,6 +25,7 @@ Frontend: Angular 7, Bootstrap
 - fix delete comment button
 - edit-in-place instead of edit form
 - can up/downvoting be neater frontend-side?
+- fix package names in backend
 
 ### Bootstrap
 - styling

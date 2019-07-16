@@ -30,7 +30,7 @@
   <div *ngIf="message.comments">
     <ul *ngFor="let comment of message.comments">
         <app-comment [thisComment]="comment" (addComment)="addComment($event)"
-        (deleteCommentEmit)="deleteComment($event)"></app-comment>
+        (deleteCommentEmit)="deleteComment($event)" (emitVote)="voteComm()" ></app-comment>
 
     </ul>
 

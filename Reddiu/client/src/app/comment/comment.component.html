@@ -1,12 +1,14 @@
 <li> {{thisComment.text}} --- {{thisComment.user}}
     <button *ngIf="isCreator() && !isDeleted" (click)="deleteComment(thisComment.id)">Delete</button>
     <br>
+    <p><button (click)="upvoteComm(commVote)">yay</button> {{ thisComment.score }} <button (click)="downvoteComm(commVote)">nay</button></p>
+    <br>
     <app-add-comment [parentCommentId]="thisComment.id" (addCommentEmit)="addCommentToMain($event)"></app-add-comment>
 </li>
       <ul *ngIf="thisComment.childComments">
         <li *ngFor="let childComment of thisComment.childComments">
           <app-comment [thisComment]="childComment" (addComment)="addCommentToMain($event)"
-          (deleteCommentEmit)="deleteComment($event)"></app-comment>
+          (deleteCommentEmit)="deleteComment($event)" (emitVote)="emit()"></app-comment>
 
         </li>
       </ul>

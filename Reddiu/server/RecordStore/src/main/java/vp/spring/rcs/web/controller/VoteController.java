@@ -107,11 +107,11 @@ public class VoteController {
 		if (voted.getCommentId() != 0) {
 			
 			// set score for comment
-			Comment comm = commentService.findById(voted.getId());
+			Comment comm = commentService.findById(voted.getCommentId()); 
 			comm.setScore(comm.getScore() + 1);
 			comm = commentService.save(comm);
 			
-			// update vote according to data passed on fron frontend
+			// update vote according to data passed on from frontend
 			Vote found = voteService.findById(voted.getId());
 			found.setUpvote(voted.isUpvote());
 			found.setDownvote(voted.isDownvote());
@@ -145,7 +145,7 @@ public class VoteController {
 		if (voted.getCommentId() != 0) {
 			
 			// set score for comment
-			Comment comm = commentService.findById(voted.getId());
+			Comment comm = commentService.findById(voted.getCommentId());
 			comm.setScore(comm.getScore() - 1);
 			comm = commentService.save(comm);
 			
