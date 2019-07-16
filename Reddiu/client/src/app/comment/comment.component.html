@@ -1,7 +1,13 @@
 <li> {{thisComment.text}} --- {{thisComment.user}}
     <button *ngIf="isCreator() && !isDeleted" (click)="deleteComment(thisComment.id)">Delete</button>
     <br>
-    <p><button (click)="upvoteComm(commVote)">yay</button> {{ thisComment.score }} <button (click)="downvoteComm(commVote)">nay</button></p>
+    <p>
+    <button *ngIf="commVote.upvote" (click)="upvoteComm(commVote)" class="btn btn-primary">yay</button>
+    <button *ngIf="!commVote.upvote" (click)="upvoteComm(commVote)" class="btn btn-default">yay</button>
+    {{ thisComment.score }}
+    <button *ngIf="commVote.downvote" (click)="downvoteComm(commVote)" class="btn btn-primary">nay</button>
+    <button *ngIf="!commVote.downvote" (click)="downvoteComm(commVote)" class="btn btn-default">nay</button>
+    </p>
     <br>
     <app-add-comment [parentCommentId]="thisComment.id" (addCommentEmit)="addCommentToMain($event)"></app-add-comment>
 </li>
