@@ -24,7 +24,7 @@ Frontend: Angular 7, Bootstrap
 - user's posts
 - fix delete comment button
 - edit-in-place instead of edit form
-- can up/downvoting be neater frontend-side?
+- can up/downvoting be neater frontend-side? works fine, but is a bit messy
 - fix package names in backend
 
 ### Bootstrap
