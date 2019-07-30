@@ -2,10 +2,11 @@
 A Reddit clone that's not really a Reddit clone 
 with some basic functionalities
 
-Backend: Java Spring Boot, JPA, MySql
+Backend: Java Spring Boot, Hibernate, Spring Data JPA, MySql
+
 Frontend: Angular 7, Bootstrap
 
-##To Dos:
+## To Dos:
 
 ### Current Functionalities
 - add edit comment to frontend
