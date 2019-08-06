@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,10 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 import vp.spring.rcs.model.user.SecurityAuthority;
 import vp.spring.rcs.model.user.SecurityUser;
 import vp.spring.rcs.security.TokenUtils;
+import vp.spring.rcs.service.CommentService;
+import vp.spring.rcs.service.MessageService;
 import vp.spring.rcs.service.UserDetailsServiceImpl;
+import vp.spring.rcs.web.dto.CommentDto;
 import vp.spring.rcs.web.dto.LoginDTO;
+import vp.spring.rcs.web.dto.MessageDto;
 import vp.spring.rcs.web.dto.TokenDTO;
 import vp.spring.rcs.web.dto.UserDTO;
+import vp.spring.rcs.web.dto.UserProfileDto;
 
 @RestController
 public class UserController {
@@ -36,6 +42,12 @@ public class UserController {
 	
 	@Autowired
 	TokenUtils tokenUtils;
+	
+	@Autowired
+	MessageService messageService;
+	
+	@Autowired
+	CommentService commentService;
 	
 	@RequestMapping(value = "/api/login", method = RequestMethod.POST)
 	public ResponseEntity<TokenDTO> login(@RequestBody LoginDTO loginDTO) {
@@ -80,6 +92,24 @@ public class UserController {
 									.map(SecurityAuthority::getName)
 									.collect(Collectors.toList());
 		return new ResponseEntity<>(authorities, HttpStatus.OK);
+	}
+	
+	@GetMapping("api/user/{username}") // a string for pathVariable is not very usual
+	public ResponseEntity<UserProfileDto> getUserProfile(@PathVariable String username) {
+		
+		SecurityUser foundUser = userDetailsService.findByUserName(username);
+		
+		List<MessageDto> messages = messageService.findByUser(foundUser.getUsername()).stream()
+									.map(MessageDto::new)
+									.collect(Collectors.toList());
+		
+		List<CommentDto> comments = commentService.findByUser(foundUser.getUsername()).stream()
+									.map(CommentDto::new)
+									.collect(Collectors.toList());
+		
+		UserProfileDto userProfile = new UserProfileDto(foundUser.getUsername(), messages, comments);
+		
+		return new ResponseEntity<>(userProfile, HttpStatus.OK);
 	}
 
 	/*@RequestMapping(value = "/api/shopping-cart", method = RequestMethod.GET)

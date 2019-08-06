@@ -23,6 +23,8 @@ import { AddMsgComponent } from './add-msg/add-msg.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { RegisterComponent } from './register/register.component';
 import { VoteService } from './services/vote.service';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { VoteService } from './services/vote.service';
     CommentComponent,
     AddMsgComponent,
     AddCommentComponent,
-    RegisterComponent
+    RegisterComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { VoteService } from './services/vote.service';
     CategoryService,
     MessageService,
     CommentService,
-    VoteService
+    VoteService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

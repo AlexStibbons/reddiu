@@ -93,7 +93,7 @@ public class VoteController {
 			
 			// change the vote variables according to data passed on from frontend
 			
-			// why is a null here, if this particulat vote object was created already??
+			// why is a null here, if this particular vote object was created already??
 			// the 'finding' in get requests above works just fine
 			//Vote found = voteService.findByMsgUser(voted.getMessageId(), user.getUsername()); 
 			Vote found = voteService.findById(voted.getId()); // works just find if vote object if found via id
@@ -149,7 +149,7 @@ public class VoteController {
 			comm.setScore(comm.getScore() - 1);
 			comm = commentService.save(comm);
 			
-			// update vote according to data passed on fron frontend
+			// update vote according to data passed on from frontend
 			Vote found = voteService.findById(voted.getId());
 			found.setUpvote(voted.isUpvote());
 			found.setDownvote(voted.isDownvote());

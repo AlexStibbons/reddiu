@@ -1,5 +1,5 @@
 /* Contains interfaces and classes for:
-  Page, Category, Message, Comment, New user, and Vote
+  Page, Category, Message, Comment, New user, Vote, and UserProfile
 */
 
 interface PageInt {
@@ -162,5 +162,24 @@ export class Vote implements VoteInt {
     this.username = spec.username;
     this.messageId = spec.messageId;
     this.commentId = spec.commentId;
+  }
+}
+
+interface UserProfileInt {
+  username: string;
+  messages?: MessageC[];
+  comments?: CommentC[];
+}
+
+export class UserProfile implements UserProfileInt {
+
+  public username: string;
+  public messages?: MessageC[];
+  public comments?: CommentC[];
+
+  constructor(spec: UserProfileInt) {
+    this.username = spec.username;
+    this.messages = spec.messages;
+    this.comments = spec.comments;
   }
 }

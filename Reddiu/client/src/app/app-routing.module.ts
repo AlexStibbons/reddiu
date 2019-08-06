@@ -7,9 +7,11 @@ import { MainComponent } from './main/main.component';
 import { MessageComponent } from './message/message.component';
 import { AddMsgComponent } from './add-msg/add-msg.component';
 import { RegisterComponent } from './register/register.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
-  {path: 'register', component: RegisterComponent},
+  { path: 'user/:username', component: UserProfileComponent},
+  { path: 'register', component: RegisterComponent},
   { path: 'post', component: AddMsgComponent},
   { path: 'message/:id', component: MessageComponent, canActivate:[CanActivateAuthGuard] },
   { path: 'main', component: MainComponent/*, canActivate:[CanActivateAuthGuard]*/ },

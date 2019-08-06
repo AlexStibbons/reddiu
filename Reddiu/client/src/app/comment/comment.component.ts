@@ -57,8 +57,6 @@ export class CommentComponent implements OnInit {
 
   // voting
   getCommVote() {
-    //let id = this.thisComment.id;
-    //console.log(id);
     this.voteService.getCommVote(this.thisComment.id).subscribe(
       (res: Vote) => {
         this.commVote = res;

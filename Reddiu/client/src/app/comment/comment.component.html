@@ -1,7 +1,7 @@
 <li> {{thisComment.text}} --- {{thisComment.user}}
     <button *ngIf="isCreator() && !isDeleted" (click)="deleteComment(thisComment.id)">Delete</button>
     <br>
-    <p>
+    <p  *ngIf="commVote"> <!-- test if this if should be here-->
     <button *ngIf="commVote.upvote" (click)="upvoteComm(commVote)" class="btn btn-primary">yay</button>
     <button *ngIf="!commVote.upvote" (click)="upvoteComm(commVote)" class="btn btn-default">yay</button>
     {{ thisComment.score }}

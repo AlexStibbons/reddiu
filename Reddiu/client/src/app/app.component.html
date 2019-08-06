@@ -16,7 +16,9 @@
 				<li><a href="#contact">Contact</a></li>
 			</ul>
 			<ul class="nav navbar-nav pull-right">
-				<li *ngIf="isLoggedIn()"><a (click)="logout()">Logout</a></li>
+        <li *ngIf="isLoggedIn()"><a (click)="logout()">Logout</a></li>
+        <li *ngIf="!isLoggedIn()"><a [routerLink]="['/login']">Login</a></li>
+        <li *ngIf="!isLoggedIn()"><a [routerLink]="['/login']"> || Register</a></li>
 			</ul>
 		</div>
 	</div>

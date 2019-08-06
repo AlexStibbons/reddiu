@@ -1,0 +1,17 @@
+<div *ngIf="userProfile">
+
+  <h1> {{ username }} </h1>
+
+  <div *ngFor="let message of messages">
+    <h4> <a [routerLink]="['/message', message.id]"> {{ message.title }} </a> </h4>
+    <p> {{ message.text }} </p>
+    <hr>
+  </div>
+
+  <h3> Comments </h3>
+  <div *ngFor="let comment of comments">
+    <p> {{ comment.text }} </p>
+    <hr>
+  </div>
+
+</div>
