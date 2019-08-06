@@ -1,6 +1,7 @@
 # reddiu
 
 *Backend*: Java Spring Boot, Hibernate, Spring Data JPA, MySql
+
 *Frontend*: Angular 7, Bootstrap
 
 ## What's reddiu?
@@ -38,11 +39,7 @@ So, on the backend side there are one to many and many to many relations, search
 
 ### Optional
 
-* user profile
-
-* user's comments
-
-* user's posts
+* link user profile to username
 
 * fix delete comment button
 
