@@ -11,7 +11,8 @@ The main reason for reddiu's existence is my expanding a project (more specifica
 
 So, on the backend side there are one to many and many to many relations, searches that return lists of DTOs and present them in a page DTO (sadly, I did not use a Page or PagedListHolder to handle DTOs in this particular project), CRUD functionalities for every post and every comment, along with a way of up and downvoting. On the frontend side, my main concern is that everything works rather than it looks pretty (at least for now).
 
-##To Dos:
+
+## To Dos:
 
 ### Current Functionalities
 
