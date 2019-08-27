@@ -3,7 +3,7 @@
   <h1>{{ message.title }}</h1>
   <h4> Category: {{ message.category.name }}</h4>
   <p>{{ message.text }}</p>
-  <p> Posted by: {{ message.user }} <br>
+  <p> Posted by: <a [routerLink]="['/user', message.user]">{{message.user}}</a><br>
   <button *ngIf="isCreator() && !isDeleted" (click)="deleteMessage(message.id)"> Delete </button></p>
   <button *ngIf="isCreator()" (click)="toEdit()"> Edit </button>
   <p> <button (click)="upvoteMsg(msgVote)">yay</button> {{ message.score }} <button (click)="downvoteMsg(msgVote)">nay</button></p>

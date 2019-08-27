@@ -9,6 +9,7 @@ import { AddMsgComponent } from './add-msg/add-msg.component';
 import { RegisterComponent } from './register/register.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
+
 const routes: Routes = [
   { path: 'user/:username', component: UserProfileComponent},
   { path: 'register', component: RegisterComponent},

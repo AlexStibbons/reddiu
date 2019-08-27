@@ -28,8 +28,8 @@
         Options
       </th>
       <th>
-        <button *ngIf="page.hasPrevious" (click)="previousPage()"> previous page</button>
-        <button *ngIf="page.hasNext" (click)="nextPage()"> next page </button>
+        <button [disabled]="!page.hasPrevious" (click)="previousPage()"> previous page</button>
+        <button [disabled]="!page.hasNext" (click)="nextPage()"> next page </button>
       </th>
     </thead>
     <tbody>
@@ -41,7 +41,9 @@
           {{message.title}}
         </td>
         <td>
-          {{message.user}}
+          <a [routerLink]="['/user', message.user]">
+              {{message.user}}
+          </a>
         </td>
         <td>
           <button class="btn-default" (click)="readMore(message.id)"> Read more </button>

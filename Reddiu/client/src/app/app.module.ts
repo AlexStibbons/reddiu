@@ -26,6 +26,7 @@ import { VoteService } from './services/vote.service';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserService } from './services/user.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
