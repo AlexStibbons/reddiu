@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { PageC, MessageC } from '../common.models';
 import { MessageService } from '../services/message.service';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../security/authentication.service';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
+
 export class MainComponent implements OnInit {
 
   // basic necessities
@@ -20,7 +22,8 @@ export class MainComponent implements OnInit {
   public isSearchTitle: boolean;
 
   constructor(private msgService: MessageService,
-              private router: Router) {
+              private router: Router,
+              private authenticationService: AuthenticationService) {
 
    }
 
@@ -129,6 +132,10 @@ export class MainComponent implements OnInit {
 
   newMessage(){
     this.router.navigate(['/post']);
+  }
+
+  isLoggedIn(): boolean{
+    return this.authenticationService.isLoggedIn();
   }
 
 }

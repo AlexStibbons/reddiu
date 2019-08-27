@@ -7,7 +7,7 @@
   </div>
 </form>
 
-<button (click)="newMessage()">Add post</button>
+<button *ngIf="isLoggedIn()" (click)="newMessage()">Add post</button>
 
 <div *ngIf="page">
   <button (click)="firstPage()" class="btn-default"> first page </button>
@@ -46,7 +46,7 @@
           </a>
         </td>
         <td>
-          <button class="btn-default" (click)="readMore(message.id)"> Read more </button>
+          <button *ngIf="isLoggedIn()" class="btn-default" (click)="readMore(message.id)"> Read more </button>
         </td>
       </tr>
     </tbody>
