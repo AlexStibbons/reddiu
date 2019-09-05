@@ -41,8 +41,6 @@ public class Message {
 	
 	private long score = 1;
 	
-	/*@ManyToOne
-	private Group group;*/
 
 	public Message() {
 		super();
@@ -59,15 +57,6 @@ public class Message {
 	}
 
 
-	/*public Message(long id, String title, String text, Category category, SecurityUser user, Group group) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.text = text;
-		this.category = category;
-		this.user = user;
-		this.group = group;
-	}*/
 
 	public long getId() {
 		return id;

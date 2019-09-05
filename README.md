@@ -18,7 +18,7 @@ On the frontend side, my main concern is that everything works rather than it lo
 
 There are still **some pretty important** details I need to add to this project. For example:
 
-Access annotations are missing on the backend side. Access needs to be more explicitly limited on the frontend side. Edge cases are rarely included in either side. A search by title and category function needs to be added (similar to the findByGenreAndTitle function in the [Korzo controller](https://github.com/AlexStibbons/Korzo/blob/master/Korzo/server/KorzoRest/src/main/java/korzoApp/web/controller/FilmController.java)).
+Access needs to be more explicitly limited on the frontend side. Edge cases are rarely included in either side. A search by title and category function needs to be added (similar to the findByGenreAndTitle function in the [Korzo controller](https://github.com/AlexStibbons/Korzo/blob/master/Korzo/server/KorzoRest/src/main/java/korzoApp/web/controller/FilmController.java)).
 
 ## What can you do on reddiu?
 

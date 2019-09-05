@@ -111,22 +111,5 @@ public class UserController {
 		
 		return new ResponseEntity<>(userProfile, HttpStatus.OK);
 	}
-
-	/*@RequestMapping(value = "/api/shopping-cart", method = RequestMethod.GET)
-	ResponseEntity<List<BookDto>> loadShoppingCart(){
-		
-		*** easy. but inellegant way:
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		***
-		
-		List<BookDto> retVal = cartService.findByUser(username).getBooks().stream()
-								.map(BookDto::new)
-								.collect(Collectors.toList());
-		
-		return new ResponseEntity<>(retVal, HttpStatus.OK);
-	}*/
-
-
-	
 	
 }

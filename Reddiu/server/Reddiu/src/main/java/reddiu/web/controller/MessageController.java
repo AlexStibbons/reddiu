@@ -1,12 +1,11 @@
 package reddiu.web.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,19 +41,8 @@ public class MessageController {
 	public ResponseEntity<PageMessageDto> findAll(Pageable page){
 		
 		PageMessageDto dto = new PageMessageDto(messageService.findPage(page));
+		
 		return new ResponseEntity<>(dto, HttpStatus.OK);
-		/* when groups exist: dto.content needs to be filtered, remove all msgs that have a group id - like so:
-		List<MessageDto> filtered = dto.getContent().stream().filter(m -> m.getCategory().getId() == 2)
-				.collect(Collectors.toList());
-		dto.setContent(filtered);
-		BUT
-		 * then the total number of messages & pages still includes the filtered ones
-		 * 	should the total number of elements then be manually changed too?
-		 * AND
-		 * there are empty spots => if size=1, page 0 shows 0 messages, but page=3 shows a message
-		 * 	it follows the spots in array without 'closing' the holes
-		*/
-	
 	}
 	
 
@@ -67,6 +55,7 @@ public class MessageController {
 		return new ResponseEntity<>(dto, HttpStatus.OK);		
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("api/messages/{id}")
 	public ResponseEntity<MessageDto> findById(@PathVariable long id) {
 		
@@ -79,6 +68,7 @@ public class MessageController {
 		}
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@DeleteMapping("api/messages/{id}")
 	public ResponseEntity<MessageDto> deleteMessage(@PathVariable long id, @AuthenticationPrincipal User user) {
 		
@@ -96,6 +86,7 @@ public class MessageController {
 		}
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@PutMapping("api/messages/{id}")  
 	public ResponseEntity<MessageDto> editMessage(@PathVariable long id,
 												@RequestBody MessageDto toEdit,
@@ -116,7 +107,7 @@ public class MessageController {
 		}
 	}
 	
-	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("api/messages/new") 
 	public ResponseEntity<MessageDto> addMsg(@AuthenticationPrincipal User user,
 											@RequestBody MessageDto message){

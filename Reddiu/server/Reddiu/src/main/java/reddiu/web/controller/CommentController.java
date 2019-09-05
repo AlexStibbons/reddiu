@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -56,6 +57,7 @@ public class CommentController {
 		}
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@PutMapping("api/comment/{id}")
 	public ResponseEntity<CommentDto> editComment(@AuthenticationPrincipal User user,
 													@PathVariable long id,
@@ -72,6 +74,7 @@ public class CommentController {
 		}
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@DeleteMapping("api/comment/{id}") // necessary to leave all child comments present
 	public ResponseEntity<CommentDto> deleteComment(@AuthenticationPrincipal User user,
 													@PathVariable long id){
@@ -86,6 +89,7 @@ public class CommentController {
 		}
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("api/comment/message/{id}")
 	public ResponseEntity<CommentDto> addComment(@AuthenticationPrincipal User user,
 												@RequestBody CommentDto comment,

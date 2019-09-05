@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("api/categories")
 	public ResponseEntity<List<CategoryDto>> findAll(){
 		
@@ -30,6 +32,7 @@ public class CategoryController {
 		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("api/categories/{id}")
 	public ResponseEntity<CategoryDto> findById(@PathVariable long id){
 		Category found = categoryService.findById(id);
